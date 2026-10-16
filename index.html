@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10121a">
+<title>Frozican Emulator Hub</title>
+<style>
+:root{color-scheme:dark;--bg:#0b0d13;--text:#f4f6ff;--muted:#a5aec4;--line:#293146;--mint:#65e6c2}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 15% -10%,#292253 0,transparent 40%),radial-gradient(ellipse at 100% 20%,#123c43 0,transparent 28%),var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);min-height:100vh}
+.wrap{width:min(1050px,calc(100% - 32px));margin:auto}.topbar{display:flex;align-items:center;justify-content:space-between;padding:23px 0;border-bottom:1px solid #ffffff12}.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:-.03em}.logo{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#8b7cff,#4ac9d7);color:#080a11;font-weight:950;font-size:20px}.pill{border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.hero{padding:65px 0 34px}.eyebrow{color:var(--mint);font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}.hero h1{font-size:clamp(40px,7vw,72px);line-height:.99;letter-spacing:-.065em;margin:16px 0 18px}.hero h1 span{background:linear-gradient(90deg,#a99eff,#70ead0);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{color:var(--muted);font-size:16px;line-height:1.7;max-width:650px;margin:0}.sectionhead{margin:20px 0 18px}.sectionhead h2{font-size:23px;letter-spacing:-.04em;margin:0 0 7px}.sectionhead p{color:var(--muted);font-size:13px;margin:0}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{position:relative;overflow:hidden;background:linear-gradient(150deg,#1b2030,#111520 72%);border:1px solid var(--line);border-radius:24px;padding:25px;display:flex;flex-direction:column;min-height:400px;transition:transform .2s,border-color .2s,box-shadow .2s}.card:hover{transform:translateY(-3px);border-color:#7166d5;box-shadow:0 18px 45px #0005}.card:before{content:"";position:absolute;width:200px;height:200px;border-radius:50%;right:-75px;top:-80px;background:var(--glow);filter:blur(2px);opacity:.17;pointer-events:none}.iconbox{width:64px;height:64px;border-radius:19px;display:grid;place-items:center;background:var(--iconbg);color:var(--icon);border:1px solid #ffffff18}.iconbox svg{width:31px;height:31px}.tag{display:inline-flex;align-items:center;gap:7px;border:1px solid #ffffff17;background:#ffffff08;color:#c5cce0;border-radius:999px;padding:6px 9px;font-size:11px;width:max-content;margin-top:20px}.dot{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 10px var(--mint)}.card h3{font-size:29px;letter-spacing:-.05em;margin:16px 0 9px}.card p{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 20px}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:23px}.chips span{font-size:11px;color:#c6cce0;background:#ffffff08;border:1px solid #ffffff10;padding:6px 8px;border-radius:8px}.links{display:grid;gap:9px;margin-top:auto}.launch{display:flex;align-items:center;justify-content:space-between;gap:12px;text-decoration:none;color:#0a0d13;background:linear-gradient(90deg,#a99eff,#70ead0);font-weight:800;padding:13px 14px;border-radius:12px;font-size:14px}.launch span{font-size:19px;flex-shrink:0}.launch.secondary{background:#20283a;color:#f2f4ff;border:1px solid #38435c}.launch:hover{filter:brightness(1.1)}.notice{margin:20px 0 0;padding:15px 17px;border:1px solid var(--line);border-radius:15px;color:var(--muted);font-size:13px;line-height:1.6;background:#10141e99}.notice b{color:var(--text)}footer{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;padding:26px 0 34px;margin-top:34px;border-top:1px solid #ffffff12;color:#7f899f;font-size:12px}footer a{color:#b8b0ff;text-decoration:none}
+@media(max-width:680px){.wrap{width:calc(100% - 24px)}.topbar{padding:17px 0}.pill{font-size:9px;padding:7px 9px}.hero{padding:43px 0 28px}.hero p{font-size:15px}.cards{grid-template-columns:1fr}.card{min-height:0;padding:22px}.card h3{font-size:26px}.sectionhead{margin-top:12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="topbar">
+  <div class="brand"><div class="logo">F</div><span>Frozican <span style="color:#8f99b0;font-weight:600">/ EMULATOR HUB</span></span></div>
+  <div class="pill">Emulator-Sammlung</div>
+</header>
+<main>
+  <section class="hero">
+    <div class="eyebrow">Deine Spiele · Deine Projekte</div>
+    <h1>Willkommen im<br><span>Emulator Hub.</span></h1>
+    <p>Wähle zwischen TAS-Emulatoren für Tool-Assisted Speedruns und dem klassischen RTA-Emulator zum normalen Spielen.</p>
+  </section>
+  <section aria-labelledby="systems">
+    <div class="sectionhead"><h2>Emulatoren</h2><p>Zwei Bereiche – alle deine Projekte an einem Ort.</p></div>
+    <div class="cards">
+      <article class="card" style="--glow:#8b7cff;--iconbg:#282044;--icon:#bdb2ff">
+        <div class="iconbox" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="3"/><path d="M8 11v4M6 13h4M16 12h.01M18 15h.01"/><path d="M8 7V5h8v2"/></svg></div>
+        <div class="tag"><i class="dot"></i> Tool-Assisted Speedrun</div>
+        <h3>TAS Emulatoren</h3>
+        <p>Deine TAS-Browser-Projekte gebündelt: NES, SNES und Nintendo 64. Öffne das gewünschte System, um an präzisen Runs und Eingaben zu arbeiten.</p>
+        <div class="chips"><span>NES</span><span>SNES</span><span>Nintendo 64</span><span>ROM-Upload</span></div>
+        <div class="links">
+          <a class="launch" href="https://frozican.github.io/nes-tas-browser/" target="_blank" rel="noopener">NES TAS öffnen <span>↗</span></a>
+          <a class="launch secondary" href="https://frozican.github.io/snes-tas-browser/" target="_blank" rel="noopener">SNES TAS öffnen <span>↗</span></a>
+          <a class="launch secondary" href="https://frozican.github.io/n64-tas-studio/" target="_blank" rel="noopener">N64 TAS Studio öffnen <span>↗</span></a>
+        </div>
+      </article>
+      <article class="card" style="--glow:#65e6c2;--iconbg:#15352f;--icon:#8cf4d7">
+        <div class="iconbox" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10V5h12v5"/><rect x="3" y="9" width="18" height="11" rx="3"/><path d="M8 13v3M6.5 14.5h3M15.5 13h.01M17.5 16h.01"/></svg></div>
+        <div class="tag"><i class="dot"></i> Real-Time Action</div>
+        <h3>RTA Emulator</h3>
+        <p>Der klassische Super Nintendo Entertainment System Web Emulator zum normalen Spielen in Echtzeit – getrennt von deinen TAS-Werkzeugen.</p>
+        <div class="chips"><span>Super Nintendo</span><span>SNES</span><span>Echtzeit-Spiel</span></div>
+        <div class="links">
+          <a class="launch" href="https://frozican.github.io/Super-Nintendo-Entertainment-System-Web-Emulator/" target="_blank" rel="noopener">SNES RTA Emulator öffnen <span>↗</span></a>
+          <a class="launch secondary" href="https://github.com/Frozican/Super-Nintendo-Entertainment-System-Web-Emulator" target="_blank" rel="noopener">GitHub-Projekt ansehen <span>↗</span></a>
+        </div>
+      </article>
+    </div>
+    <div class="notice"><b>Hinweis:</b> Die Kacheln sind eine zentrale Übersicht und öffnen die jeweiligen Projekte. Ob eine Emulator-Seite bereits erreichbar ist, hängt davon ab, ob GitHub Pages für das Repository aktiviert und veröffentlicht wurde. ROM-Dateien sind nicht enthalten.</div>
+  </section>
+</main>
+<footer><span>Frozican Emulator Hub</span><span>Projekte auf <a href="https://github.com/Frozican" target="_blank" rel="noopener">GitHub ↗</a></span></footer>
+</div>
+</body>
+</html>
