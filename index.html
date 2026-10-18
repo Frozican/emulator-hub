@@ -71,7 +71,24 @@
     </div>
     <div class="notice"><b>Note:</b> TAS and RTA are separate sections. Add new emulators as links in the appropriate card. This hub does not host ROM files; only use game files you are authorized to use.</div>
   </section>
+
+  <section aria-labelledby="reviews-heading" style="margin-top:34px">
+    <div class="sectionhead"><h2 id="reviews-heading">Leave a review</h2><p>Share feedback about the Emulator Hub. Reviews are private and only the site owner can read them.</p></div>
+    <form id="review-form" class="notice" style="display:grid;gap:13px;padding:20px" aria-describedby="review-privacy">
+      <div style="display:grid;gap:7px"><label for="review-name">Name or nickname (optional)</label><input id="review-name" name="display_name" maxlength="50" placeholder="Anonymous" autocomplete="nickname" style="width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b0d13;color:var(--text);font:inherit"></div>
+      <fieldset style="border:0;padding:0;margin:0"><legend style="margin-bottom:8px">Your rating</legend><div style="display:flex;gap:12px;flex-wrap:wrap" role="radiogroup" aria-label="Rating from one to five stars">
+        <label style="display:flex;align-items:center;gap:5px;cursor:pointer"><input type="radio" name="rating" value="1"  required style="accent-color:#70ead0"> 1 ★</label><label style="display:flex;align-items:center;gap:5px;cursor:pointer"><input type="radio" name="rating" value="2"  required style="accent-color:#70ead0"> 2 ★</label><label style="display:flex;align-items:center;gap:5px;cursor:pointer"><input type="radio" name="rating" value="3"  required style="accent-color:#70ead0"> 3 ★</label><label style="display:flex;align-items:center;gap:5px;cursor:pointer"><input type="radio" name="rating" value="4"  required style="accent-color:#70ead0"> 4 ★</label><label style="display:flex;align-items:center;gap:5px;cursor:pointer"><input type="radio" name="rating" value="5" checked required style="accent-color:#70ead0"> 5 ★</label>
+      </div></fieldset>
+      <div style="display:grid;gap:7px"><label for="review-title">Title</label><input id="review-title" name="title" required maxlength="100" placeholder="What did you think?" style="width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b0d13;color:var(--text);font:inherit"></div>
+      <div style="display:grid;gap:7px"><label for="review-body">Your review</label><textarea id="review-body" name="body" required minlength="10" maxlength="2000" rows="5" placeholder="Tell us what works well or what could improve…" style="width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b0d13;color:var(--text);font:inherit;resize:vertical"></textarea></div>
+      <p id="review-privacy" style="margin:0;color:var(--muted);font-size:12px;line-height:1.6">Reviews are not shown publicly. The site owner can read them in the private admin dashboard. By submitting, you agree not to include sensitive personal information.</p>
+      <div><button type="submit" class="launch" style="border:0;cursor:pointer;font:inherit;font-weight:800">Submit review <span>↗</span></button></div>
+      <p id="review-status" role="status" aria-live="polite" style="margin:0;color:var(--mint);font-size:13px"></p>
+    </form>
+  </section>
+
 </main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="./supabase-config.js"></script><script src="./reviews.js"></script>
 <footer><span>Frozican Emulator Hub</span><span>Browser-based emulator collection</span></footer>
 </div>
 </body>
