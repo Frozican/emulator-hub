@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10121a">
+<title>Review Admin · Frozican Emulator Hub</title>
+<style>
+:root{color-scheme:dark;--bg:#0b0d13;--panel:#151a27;--line:#293146;--text:#f4f6ff;--muted:#a5aec4;--mint:#65e6c2}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% -10%,#292253 0,transparent 40%),var(--bg);font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:var(--text);min-height:100vh}.wrap{width:min(900px,calc(100% - 28px));margin:auto}.top{padding:25px 0;border-bottom:1px solid #ffffff15;display:flex;justify-content:space-between;align-items:center;gap:12px}.top a{color:#bdb2ff}.panel,.review{background:#151a27;border:1px solid var(--line);border-radius:16px;padding:20px;margin:18px 0}.muted{color:var(--muted);line-height:1.6}.field{display:grid;gap:7px;margin:13px 0}input,textarea,select{width:100%;background:#0d111b;border:1px solid #39435a;color:var(--text);padding:12px;border-radius:9px;font:inherit}button{border:0;border-radius:9px;padding:10px 13px;font-weight:750;cursor:pointer;background:linear-gradient(90deg,#a99eff,#70ead0);color:#090c12}button.secondary{background:#252e41;color:var(--text);border:1px solid #3b4761}button.danger{background:#512832;color:#ffe4e8;border:1px solid #7c3c4a}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.hidden{display:none!important}.review h3{margin:5px 0}.stars{color:#f5ce75;letter-spacing:2px}.meta{font-size:12px;color:var(--muted)}#message{white-space:pre-wrap;color:var(--mint)}.badge{font-size:12px;color:#f5ce75}.review-body{white-space:pre-wrap;line-height:1.65}.filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.filters select{width:auto;min-width:145px}h1{letter-spacing:-.04em}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="./supabase-config.js"></script>
+</head>
+<body><div class="wrap">
+<header class="top"><strong>Frozican / REVIEW ADMIN</strong><a href="./">← Back to hub</a></header>
+<main><h1>Review moderation</h1><p class="muted">Private dashboard. Sign in with the Supabase Auth account whose user ID is allowlisted in <code>review_admins</code>.</p>
+<section id="login" class="panel"><h2>Admin sign in</h2><form id="login-form"><div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="username" required></div><div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required></div><button type="submit">Sign in</button></form></section>
+<section id="dashboard" class="hidden"><div class="panel"><div class="filters"><label for="status-filter">Show</label><select id="status-filter"><option value="pending">Pending</option><option value="approved">Approved</option><option value="rejected">Rejected</option><option value="all">All reviews</option></select><button id="refresh" class="secondary">Refresh</button><button id="signout" class="secondary">Sign out</button></div><p id="count" class="muted"></p></div><div id="reviews"></div></section>
+<p id="message" role="status"></p>
+</main></div>
+<script>
+(() => {
+ const cfg=window.EMULATOR_HUB_SUPABASE||{};
+ const valid=cfg.url&&cfg.anonKey&&!cfg.url.includes("YOUR-PROJECT")&&!cfg.anonKey.includes("YOUR_SUPABASE");
+ const login=document.querySelector("#login"), dashboard=document.querySelector("#dashboard"), message=document.querySelector("#message");
+ if(!valid||!window.supabase){login.classList.remove("hidden");document.querySelector("#login-form").classList.add("hidden");message.textContent="Setup required: fill in supabase-config.js with your Supabase project URL and publishable/anon key.";return}
+ const db=window.supabase.createClient(cfg.url,cfg.anonKey);
+ const say=t=>message.textContent=t;
+ async function refresh(){
+  const status=document.querySelector("#status-filter").value;let q=db.from("reviews").select("*").order("created_at",{ascending:false});
+  if(status!=="all")q=q.eq("status",status);
+  const {data,error}=await q;if(error){say("Could not load reviews: "+error.message);return}
+  document.querySelector("#count").textContent=data.length+" review(s)";
+  const root=document.querySelector("#reviews");root.replaceChildren();
+  if(!data.length){root.innerHTML='<div class="panel muted">No reviews in this view.</div>';return}
+  for(const r of data){
+   const el=document.createElement("article");el.className="review";
+   const title=document.createElement("h3");title.textContent=r.title;
+   const meta=document.createElement("div");meta.className="meta";meta.textContent=r.display_name+" · "+new Date(r.created_at).toLocaleString()+" · ";
+   const badge=document.createElement("span");badge.className="badge";badge.textContent=r.status.toUpperCase();meta.append(badge);
+   const stars=document.createElement("div");stars.className="stars";stars.textContent="★".repeat(r.rating)+"☆".repeat(5-r.rating);
+   const body=document.createElement("p");body.className="review-body";body.textContent=r.body;
+   const actions=document.createElement("div");actions.className="actions";
+   for(const [label,statusValue] of [["Approve","approved"],["Reject","rejected"]]){
+    const b=document.createElement("button");b.textContent=label;b.className="secondary";b.addEventListener("click",async()=>{const {error}=await db.from("reviews").update({status:statusValue}).eq("id",r.id);if(error)say("Update failed: "+error.message);else{say("Review "+statusValue+".");refresh()}});actions.append(b)
+   }
+   const del=document.createElement("button");del.textContent="Delete";del.className="danger";del.addEventListener("click",async()=>{if(!confirm("Permanently delete this review?"))return;const {error}=await db.from("reviews").delete().eq("id",r.id);if(error)say("Delete failed: "+error.message);else{say("Review deleted.");refresh()}});actions.append(del);
+   el.append(meta,stars,title,body,actions);root.append(el)
+  }
+ }
+ document.querySelector("#login-form").addEventListener("submit",async e=>{e.preventDefault();say("Signing in…");const {error}=await db.auth.signInWithPassword({email:document.querySelector("#email").value,password:document.querySelector("#password").value});if(error){say("Sign-in failed: "+error.message);return}await checkSession()});
+ async function checkSession(){const {data}=await db.auth.getSession();if(!data.session){login.classList.remove("hidden");dashboard.classList.add("hidden");return}const {data:allowed,error}=await db.rpc("is_review_admin");if(error||!allowed){await db.auth.signOut();say("This account is not on the review admin allowlist.");return}login.classList.add("hidden");dashboard.classList.remove("hidden");say("Signed in.");await refresh()}
+ document.querySelector("#refresh").addEventListener("click",refresh);document.querySelector("#status-filter").addEventListener("change",refresh);document.querySelector("#signout").addEventListener("click",async()=>{await db.auth.signOut();checkSession()});
+ checkSession();
+})();
+</script></body></html>
